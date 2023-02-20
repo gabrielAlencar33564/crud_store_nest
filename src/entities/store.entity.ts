@@ -2,19 +2,25 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  JoinColumn,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
+import Category from './category.entity';
 
 @Entity('store')
-class store {
+class Store {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
   @Column()
   name: string;
 
-  @Column()
+  @ManyToOne(() => Category, { eager: true })
+  @JoinColumn()
+  category: Category;
+
   @Column({ default: 'ACTIVE' })
   status: string;
 
@@ -35,4 +41,4 @@ class store {
   deletedAt: string;
 }
 
-export default store;
+export default Store;
